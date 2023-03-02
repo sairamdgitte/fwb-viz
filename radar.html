@@ -1,0 +1,263 @@
+<!-- Styles -->
+<style>
+    #chartdiv {
+      width: 100%;
+      height: 700px;
+    }
+    
+    </style>
+    
+    <!-- Resources -->
+    <script src="https://cdn.amcharts.com/lib/4/core.js"></script>
+    <script src="https://cdn.amcharts.com/lib/4/charts.js"></script>
+    <script src="https://cdn.amcharts.com/lib/4/themes/animated.js"></script>
+    
+    <!-- Chart code -->
+    <script>
+    am4core.ready(function() {
+    
+    // Themes begin
+    am4core.useTheme(am4themes_animated);
+    // Themes end
+    
+    /**
+     * This is a copy of a chart created by Antti Lipponen: https://twitter.com/anttilip?lang=en Thanks a lot!
+     */
+    
+    // disclaimer: this data is not accuarate, don't use it for any puroposes
+    // first temperature is average for 1973-1980 period
+    
+    var temperatures = {"USA": [["USA-topic 5", 210, 78, 306, 542, 1713, 1701, 1866, 1871, 2064, 1877, 779, 924, 2229, 2071, 2018, 2107, 2555, 2689, 4855, 4696, 3582, 3863, 4683, 6808, 5399, 6132, 6327, 4388, 4551, 4570, 3941, 5230, 5166], ["USA-topic 19", 6, 7, 9, 5, 54, 84, 65, 51, 81, 70, 51, 52, 84, 96, 83, 60, 88, 81, 68, 102, 180, 936, 1415, 1284, 815, 991, 656, 757, 1072, 1350, 740, 563, 817], ["USA-topic 8", 95, 95, 129, 165, 532, 596, 530, 501, 536, 613, 308, 320, 831, 872, 1229, 1294, 1615, 1509, 1742, 1967, 2194, 3525, 4807, 7054, 7424, 7221, 7101, 9132, 8506, 8676, 6710, 5414, 5044], ["USA-topic 4", 4, 2, 1, 44, 892, 892, 876, 830, 1032, 1110, 484, 727, 1660, 2058, 3011, 1973, 316, 118, 265, 288, 1473, 381, 279, 277, 318, 200, 279, 188, 219, 173, 180, 124, 221], ["USA-topic 14", 66, 66, 83, 150, 267, 290, 288, 333, 432, 366, 246, 212, 459, 510, 522, 639, 1047, 1030, 934, 1200, 1177, 1229, 1453, 3016, 3017, 3417, 1965, 2944, 2303, 1995, 1986, 1537, 1333], ["USA-topic 18", 41, 34, 81, 136, 521, 495, 536, 446, 434, 459, 215, 163, 232, 340, 411, 336, 363, 421, 530, 2594, 2523, 2439, 2506, 7586, 4621, 4054, 2132, 2458, 2231, 2580, 2632, 1772, 1533], ["USA-topic 17", 63, 61, 64, 78, 132, 176, 194, 182, 152, 216, 116, 180, 175, 191, 219, 268, 340, 357, 352, 840, 726, 955, 1024, 1060, 1002, 1017, 878, 1129, 1384, 1502, 1107, 1020, 827], ["USA-topic 13", 58, 57, 63, 92, 322, 348, 446, 387, 393, 371, 229, 198, 272, 325, 419, 639, 731, 732, 934, 760, 580, 640, 2458, 3485, 3014, 3702, 4197, 3931, 4989, 4337, 4065, 3685, 3689], ["USA-topic 1", 31, 39, 35, 574, 10014, 10717, 10404, 9013, 8180, 8136, 2347, 885, 1468, 3739, 7100, 3541, 1114, 913, 1221, 1807, 2009, 1591, 2180, 2527, 1915, 1836, 1846, 2051, 2496, 2308, 1700, 1558, 1406], ["USA-topic 10", 76, 67, 98, 148, 607, 482, 468, 363, 444, 494, 227, 229, 439, 603, 874, 873, 931, 1663, 2126, 1431, 942, 1093, 2447, 2838, 1699, 1635, 1740, 2553, 2336, 2363, 2656, 2534, 2571], ["USA-topic 11", 8, 6, 12, 26, 495, 524, 479, 451, 341, 439, 136, 234, 99, 113, 126, 111, 149, 193, 309, 261, 242, 238, 344, 308, 413, 290, 358, 382, 437, 445, 338, 168, 196], ["USA-topic 3", 15, 24, 22, 32, 306, 305, 302, 248, 298, 325, 257, 110, 777, 2544, 2026, 2021, 2282, 2381, 1353, 775, 923, 1216, 1623, 1873, 1189, 1083, 1300, 1378, 1313, 1330, 1122, 793, 899], ["USA-topic 16", 84, 56, 61, 136, 323, 299, 314, 432, 518, 369, 249, 227, 503, 409, 595, 878, 581, 475, 561, 1067, 1280, 1995, 4515, 6247, 4612, 4370, 4027, 3872, 4383, 4310, 3029, 2862, 2911], ["USA-topic 2", 1, 4, 17, 378, 446, 439, 354, 389, 458, 144, 102, 170, 162, 175, 63, 42, 31, 67, 124, 183, 218, 313, 228, 196, 225, 299, 341, 390, 395, 380, 503, 509], ["USA-topic 21", 5, 2, 14, 9, 57, 56, 46, 46, 45, 36, 18, 35, 40, 49, 63, 81, 98, 76, 88, 175, 268, 333, 396, 288, 233, 289, 265, 192, 238, 208, 109, 142, 287], ["USA-topic 12", 5, 3, 8, 72, 65, 63, 47, 32, 32, 12, 17, 59, 65, 74, 20, 7, 12, 56, 63, 55, 416, 466, 156, 88, 154, 112, 174, 127, 111, 146, 112, 106], ["USA-topic 9", 11, 8, 18, 26, 126, 107, 159, 119, 149, 160, 62, 41, 165, 305, 686, 722, 306, 344, 336, 465, 304, 320, 633, 545, 552, 420, 733, 2338, 1901, 1721, 1168, 1134, 1160], ["USA-topic 6", 2, 24, 21, 13, 20, 22, 10, 12, 8, 11, 18, 26, 42, 16, 30, 19, 441, 891, 594, 130, 240, 174, 233, 211, 228, 221, 241, 175, 130, 127], ["USA-topic 15", 28, 36, 24, 40, 134, 162, 181, 180, 245, 237, 157, 185, 225, 259, 267, 343, 375, 425, 505, 807, 641, 1174, 1692, 2288, 2310, 3410, 5214, 9206, 9301, 10073, 6177, 7714, 12349], ["USA-topic 7", 5, 20, 7, 8, 38, 35, 29, 36, 30, 31, 11, 26, 53, 66, 132, 107, 69, 56, 93, 146, 109, 105, 1101, 1510, 936, 713, 542, 749, 654, 630, 349, 392, 392], ["USA-topic 20", 1, 2, 19, 10, 10, 18, 26, 29, 9, 14, 30, 62, 193, 245, 26, 2, 10, 13, 87, 20, 16, 8, 12, 14, 8, 6, 5, 22, 14, 104, 112]], "UK": [["UK-topic 5", 76, 45, 52, 46, 28, 92, 50, 124, 480, 676, 582, 1632, 1946, 2143, 2910, 3544, 3913, 4034, 2970, 2740, 1142, 641, 1306, 2469, 2124, 4102, 4015, 2168, 2138, 2630, 2868, 2742, 2383], ["UK-topic 19", 6, 4, 2, 2, 4, 2, 5, 7, 9, 5, 17, 24, 16, 22, 20, 56, 41, 43, 83, 66, 65], ["UK-topic 8", 18, 3, 11, 5, 1, 26, 18, 36, 116, 92, 81, 371, 941, 752, 854, 874, 951, 1074, 1206, 1045, 770, 542, 1000, 2276, 2079, 2170, 2308, 3268, 3218, 3127, 3208, 3509, 3982], ["UK-topic 4", 1, 4, 3, 1, 5, 16, 10, 14, 25, 26, 34, 36, 29, 51, 15, 23, 57, 65, 80, 99, 96, 132, 121, 118, 92, 238], ["UK-topic 14", 22, 2, 9, 8, 2, 21, 17, 28, 64, 77, 72, 291, 630, 508, 457, 459, 558, 610, 509, 425, 344, 226, 397, 620, 592, 869, 779, 1112, 1169, 1109, 1094, 1372, 1510], ["UK-topic 18", 1, 7, 7, 7, 4, 4, 4, 39, 77, 84, 70, 71, 71, 80, 72, 207, 196, 172, 348, 633, 360, 445, 350, 448, 439, 517, 511, 535, 499], ["UK-topic 17", 2, 2, 2, 1, 28, 20, 18, 20, 27, 17, 202, 404, 402, 323, 462, 372, 446, 374, 621, 540, 309, 496, 911, 617, 848, 860, 1275, 1413, 1478, 1350, 1319, 1185], ["UK-topic 13", 10, 2, 3, 3, 15, 10, 9, 11, 17, 19, 183, 391, 325, 397, 370, 389, 522, 528, 426, 295, 130, 539, 1756, 1047, 1336, 2099, 2593, 2561, 2646, 2298, 2779, 3640], ["UK-topic 1", 19, 2, 3, 8, 8, 47, 31, 48, 177, 199, 82, 1140, 1773, 1618, 1632, 1849, 1676, 2197, 2252, 2277, 1878, 685, 1235, 2086, 1360, 1873, 2210, 3280, 3410, 3540, 3194, 2603, 2759], ["UK-topic 10", 48, 33, 42, 45, 9, 71, 59, 71, 282, 409, 355, 1148, 1723, 1995, 2504, 2649, 2840, 3863, 3469, 2516, 827, 337, 1084, 2084, 1620, 1571, 2074, 2083, 1942, 1713, 1958, 1710, 2233], ["UK-topic 11", 3, 2, 2, 5, 2, 37, 82, 68, 83, 87, 128, 144, 225, 152, 109, 41, 166, 242, 204, 317, 846, 2700, 4396, 6060, 5393, 3517, 2951], ["UK-topic 3", 1, 4, 2, 3, 4, 3, 6, 20, 7, 7, 10, 15, 14, 19, 20, 25, 20, 273, 178, 76, 89, 209, 233, 191, 213, 194, 138, 139], ["UK-topic 16", 7, 3, 3, 10, 4, 6, 41, 75, 68, 54, 51, 49, 79, 68, 103, 100, 63, 273, 355, 236, 327, 343, 462, 581, 592, 1275, 1326, 1751], ["UK-topic 2", 2, 1, 5, 1, 16, 21, 19, 20, 16, 23, 23, 51, 38, 22, 17, 12, 33, 69, 88, 100, 113, 176, 223, 179, 151, 303, 250], ["UK-topic 21", 1, 1, 1, 2, 9, 8, 6, 23, 23, 12, 81, 145, 146, 90, 106, 86, 96, 123, 120, 147, 157, 188, 353, 510, 279, 240, 100, 86, 122, 55, 53, 74], ["UK-topic 12", 4, 3, 5, 5, 7, 3, 3, 5, 9, 10, 14, 14, 18, 32, 34, 33, 73, 274, 218, 83, 55, 92, 114, 79], ["UK-topic 9", 1, 3, 1, 7, 10, 5, 15, 13, 18, 206, 328, 331, 314, 395, 355, 444, 416, 384, 405, 153, 288, 543, 489, 603, 1134, 1617, 1910, 2002, 1828, 1827, 1663], ["UK-topic 6", 5, 4, 7, 2, 3, 1, 7, 10, 8, 12, 23, 27, 52, 50, 94, 79, 60, 52, 80, 72, 48], ["UK-topic 15", 2, 8, 6, 1, 5, 10, 8, 59, 123, 99, 87, 95, 106, 102, 85, 111, 95, 77, 121, 216, 207, 344, 518, 1112, 960, 906, 668, 850, 1146], ["UK-topic 7", 11, 3, 10, 14, 10, 85, 90, 81, 210, 124, 114, 566, 1121, 849, 1080, 1615, 1145, 1077, 889, 1037, 729, 586, 2929, 3764, 3565, 4091, 3612, 4270, 4234, 4376, 4736, 4596, 4933], ["UK-topic 20", 4, 5, 2, 5, 6, 3, 4, 4, 4, 3, 1, 5, 26, 63, 136, 224, 274, 318, 305, 172, 385, 314]], "AUSTRALIA": [["AUSTRALIA-topic 5", 2, 4, 5, 3, 17, 47, 88, 168, 243, 697, 615, 1141, 1554, 1709, 1902, 2163, 1991, 2337, 2384, 1753, 1001, 597, 805, 854, 717, 1265, 1132, 607, 625, 753, 1004, 949, 850], ["AUSTRALIA-topic 19", 2, 2, 2, 8, 3, 2, 4, 1, 3, 2, 2, 4, 4, 2, 2, 2, 5, 1, 2, 3, 1], ["AUSTRALIA-topic 8", 1, 1, 1, 2, 4, 4, 9, 6, 53, 55, 200, 393, 468, 622, 510, 525, 457, 418, 450, 262, 171, 232, 436, 395, 480, 357, 476, 491, 451, 397, 321, 243], ["AUSTRALIA-topic 4", 1, 2, 5, 3, 36, 22, 65, 27, 21, 31, 30, 66, 129, 156, 130, 78, 84, 82, 122, 80, 110, 46, 23, 24, 19, 24, 22, 39], ["AUSTRALIA-topic 14", 2, 1, 12, 18, 49, 43, 115, 122, 226, 342, 416, 449, 496, 581, 609, 548, 399, 234, 173, 227, 198, 149, 239, 189, 245, 211, 190, 173, 175, 182], ["AUSTRALIA-topic 18", 5, 4, 11, 16, 7, 9, 21, 29, 31, 55, 39, 102, 59, 42, 48, 60, 56, 55, 76, 326, 205, 254, 367, 210, 129, 173, 122, 144, 140, 169, 165, 190, 109], ["AUSTRALIA-topic 17", 1, 1, 9, 9, 1, 5, 45, 17, 137, 118, 92, 94, 128, 147, 158, 143, 209, 155, 83, 98, 148, 138, 165, 119, 223, 205, 173, 130, 167, 164], ["AUSTRALIA-topic 13", 1, 1, 2, 5, 7, 26, 54, 171, 95, 215, 293, 355, 303, 261, 318, 475, 434, 347, 204, 164, 594, 837, 476, 495, 687, 802, 907, 1043, 678, 583, 543], ["AUSTRALIA-topic 1", 2, 1, 7, 8, 18, 59, 179, 124, 616, 508, 441, 319, 389, 495, 664, 727, 713, 633, 502, 629, 733, 617, 658, 556, 666, 526, 398, 310, 175, 204], ["AUSTRALIA-topic 10", 3, 4, 1, 1, 7, 8, 20, 23, 236, 142, 193, 331, 594, 690, 606, 705, 1016, 1124, 778, 270, 145, 213, 273, 210, 349, 273, 415, 394, 585, 363, 315, 488], ["AUSTRALIA-topic 11", 4, 4, 5, 8, 47, 28, 97, 42, 31, 17, 26, 52, 81, 65, 98, 39, 46, 62, 76, 54, 62, 46, 63, 104, 102, 96, 124, 76], ["AUSTRALIA-topic 3", 1, 10, 5, 8, 113, 8, 10, 14, 10, 7, 13, 17, 50, 32, 10, 42, 20, 12, 18, 33, 41, 27, 38, 19, 30, 22], ["AUSTRALIA-topic 16", 1, 3, 5, 7, 2, 23, 15, 78, 59, 40, 77, 57, 45, 54, 73, 50, 33, 17, 44, 64, 46, 46, 43, 55, 61, 57, 75, 65, 59], ["AUSTRALIA-topic 2", 1, 1, 3, 5, 18, 16, 18, 3, 7, 5, 7, 16, 19, 17, 15, 13, 7, 10, 16, 31, 43, 32, 44, 57, 52, 69, 135, 77], ["AUSTRALIA-topic 21", 1, 1, 2, 1, 1, 4, 2, 7, 7, 11, 10, 1, 3, 8, 5, 4, 3, 10, 9, 6, 7, 10, 10, 8, 5, 5, 2, 3, 7], ["AUSTRALIA-topic 12", 1, 3, 3, 18, 11, 16, 6, 4, 3, 7, 11, 8, 10, 10, 11, 4, 11, 23, 22, 9, 9, 20, 18, 13, 7, 5, 6], ["AUSTRALIA-topic 9", 2, 3, 25, 15, 50, 25, 82, 86, 83, 87, 61, 103, 131, 97, 108, 97, 54, 77, 69, 64, 91, 91, 123, 95, 85, 89, 57, 33], ["AUSTRALIA-topic 6", 1, 4, 3, 2, 1, 1, 1, 1, 2, 2, 10, 1, 3, 15, 8, 1, 4, 10, 4, 2, 7, 8], ["AUSTRALIA-topic 15", 1, 2, 2, 3, 13, 10, 49, 14, 27, 20, 18, 35, 53, 30, 48, 41, 19, 34, 20, 47, 88, 182, 192, 177, 292, 302, 347, 134], ["AUSTRALIA-topic 7", 2, 3, 7, 8, 6, 4, 21, 15, 15, 57, 70, 229, 579, 598, 940, 964, 805, 1128, 778, 667, 294, 172, 386, 597, 732, 899, 646, 734, 563, 726, 1368, 822, 844], ["AUSTRALIA-topic 20", 1, 1, 6, 2, 2, 2, 1, 1, 11, 5, 1, 5, 5, 1, 1, 2, 1, 2, 3, 1, 4, 1]], "IND": [["IND-topic 5", 1, 5, 12, 60, 80, 77, 80, 34, 27, 52, 100, 100, 358, 332, 144, 188, 246, 342, 371, 303], ["IND-topic 19", 5, 16, 8, 3, 4, 1, 2, 1, 1, 1, 2, 2], ["IND-topic 8", 7, 26, 26, 69, 56, 88, 42, 73, 99, 226, 195, 219, 179, 196, 272, 302, 384, 357, 269], ["IND-topic 4", 2, 8, 8, 4, 4, 2, 6, 6, 47, 43, 6, 27, 12, 5, 9, 9], ["IND-topic 14", 13, 25, 52, 25, 8, 9, 11, 16, 22, 12, 4, 14, 17, 11, 11, 15, 23], ["IND-topic 18", 1, 3, 3, 7, 10, 213, 115, 116, 60, 169, 109, 77, 38, 34, 43, 38, 55, 28, 57], ["IND-topic 17", 3, 1, 6, 11, 50, 11, 28, 39, 31, 13, 19, 3, 14, 12, 8, 14, 13, 13], ["IND-topic 13", 2, 1, 16, 31, 6, 5, 26, 48, 25, 28, 33, 29, 33, 29, 44, 40, 42], ["IND-topic 1", 1, 1, 3, 3, 10, 32, 66, 50, 42, 32, 40, 40, 17, 12, 39, 42, 39, 11, 16, 20, 20], ["IND-topic 10", 20, 21, 44, 50, 35, 1, 9, 10, 26, 15, 14, 16, 20, 38, 36, 63, 64, 66], ["IND-topic 11", 2, 1, 2, 6, 1, 2, 4, 2, 1, 6, 1, 4, 3, 5, 3], ["IND-topic 3", 1, 4, 11, 26, 15, 5, 5, 10, 5, 2, 4, 6, 1, 3, 9, 3, 2], ["IND-topic 16", 3, 2, 6, 11, 52, 26, 25, 47, 57, 32, 44, 38, 18, 37, 35, 41, 30, 38], ["IND-topic 2", 3, 1, 3, 4, 1, 2, 4, 7, 5, 14, 16, 19, 29, 51, 92, 72, 26], ["IND-topic 21", 2, 2, 3, 8, 1, 5, 5, 7, 18, 27, 19, 25, 31, 53, 35, 33, 21], ["IND-topic 12", 2, 9, 2, 3, 3, 5, 9, 2], ["IND-topic 9", 2, 7, 20, 3, 1, 6, 8, 6, 8, 6, 15, 6, 11, 33, 20, 28], ["IND-topic 6", 1, 1, 1, 42, 8, 19, 3, 3, 1, 3, 2, 1, 5, 2], ["IND-topic 15", 5, 10, 25, 49, 99, 11, 63, 73, 37, 16, 24, 24, 34, 35, 33, 47, 42, 79], ["IND-topic 7", 6, 4, 1, 1, 2, 18, 42, 30, 47, 50, 70, 58, 59, 74, 72, 99], ["IND-topic 20", 1, 2, 1, 2, 3, 2, 1, 1]], "NZ": [["NZ-topic 5", 1, 1, 43, 75, 139, 263, 258, 399, 598, 542, 483, 87, 21, 34, 51, 60, 173, 226, 95, 97, 132, 117, 115, 94], ["NZ-topic 19", 1, 3, 2, 2, 2, 1, 1], ["NZ-topic 8", 15, 50, 59, 99, 112, 74, 105, 70, 107, 31, 30, 45, 130, 93, 135, 105, 171, 107, 123, 67, 66, 91], ["NZ-topic 4", 1, 2, 4, 2, 1, 1, 2, 2, 1, 2, 1, 2, 1, 5, 1], ["NZ-topic 14", 1, 6, 15, 9, 17, 18, 35, 43, 24, 25, 5, 6, 8, 3, 9, 22, 17, 33, 8, 26, 16, 9, 12], ["NZ-topic 18", 3, 3, 2, 3, 3, 2, 5, 23, 21, 12, 11, 22, 28, 27, 18, 6, 11, 18, 12, 31, 12], ["NZ-topic 17", 4, 10, 3, 17, 12, 10, 13, 13, 26, 19, 15, 21, 13, 12, 26, 20, 46, 27, 25, 21, 32, 17], ["NZ-topic 13", 5, 12, 16, 25, 29, 32, 50, 50, 57, 21, 10, 35, 62, 37, 67, 130, 100, 134, 126, 114, 147, 96], ["NZ-topic 1", 1, 33, 51, 37, 37, 45, 66, 101, 150, 148, 85, 32, 41, 99, 56, 61, 66, 96, 98, 51, 49, 40, 48], ["NZ-topic 10", 9, 8, 26, 61, 83, 95, 161, 132, 149, 29, 14, 13, 31, 19, 38, 71, 49, 31, 41, 94, 54, 64], ["NZ-topic 11", 1, 1, 3, 2, 6, 6, 7, 8, 12, 7, 2, 4, 1, 6, 6, 4, 1, 4, 2, 3], ["NZ-topic 3", 1, 2, 2, 1, 2, 2, 2, 5, 3, 3, 4, 7, 3, 5, 12, 6, 9, 5, 2, 3], ["NZ-topic 16", 1, 2, 2, 3, 6, 5, 8, 14, 5, 10, 4, 2, 5, 10, 5, 12, 13, 9, 14, 1, 13, 6, 10], ["NZ-topic 2", 1, 1, 2, 2, 5, 1, 4, 1, 1, 1, 1, 4, 1, 1, 7, 1, 4, 6, 1], ["NZ-topic 21", 2, 1, 2, 2, 1, 2], ["NZ-topic 12", 1, 1, 2, 1, 7, 2, 2], ["NZ-topic 9", 1, 1, 2, 8, 5, 5, 1, 14, 10, 12, 5, 5, 2, 6, 7, 17, 6, 33, 19, 15, 18, 4, 11], ["NZ-topic 6", 1, 2, 1, 1, 1, 3, 5, 1, 1, 3, 3, 2, 2, 4, 4, 2, 6], ["NZ-topic 15", 4, 25, 6, 4, 22, 9, 9, 8, 6, 7, 80, 66, 30, 34, 65, 139, 150, 41, 37, 41, 24, 25], ["NZ-topic 7", 5, 26, 30, 60, 68, 77, 212, 96, 55, 20, 10, 33, 115, 100, 100, 112, 100, 80, 93, 112, 94, 75], ["NZ-topic 20", 1, 2]]}
+
+    
+    
+    var startYear = 1991;
+    var endYear = 2022;
+    var currentYear = 2022;
+    var colorSet = new am4core.ColorSet();
+    
+    var chart = am4core.create("chartdiv", am4charts.RadarChart);
+    // chart.numberFormatter.numberFormat = "+#.0°C|#.0°C|0.0°C";
+    chart.hiddenState.properties.opacity = 0;
+    
+    chart.startAngle = 270 - 180;
+    chart.endAngle = 270 + 180;
+    // chart.startAngle = 180 - 90;
+    // chart.endAngle = 180 + 90;
+    
+    chart.padding(5,15,5,10)
+    chart.radius = am4core.percent(65);
+    chart.innerRadius = am4core.percent(40);
+    
+    // year label goes in the middle
+    var yearLabel = chart.radarContainer.createChild(am4core.Label);
+    yearLabel.horizontalCenter = "middle";
+    yearLabel.verticalCenter = "middle";
+    yearLabel.fill = am4core.color("#673AB7");
+    yearLabel.fontSize = 30;
+    yearLabel.text = String(currentYear);
+    
+    // zoomout button
+    var zoomOutButton = chart.zoomOutButton;
+    zoomOutButton.dx = 0;
+    zoomOutButton.dy = 0;
+    zoomOutButton.marginBottom = 15;
+    zoomOutButton.parent = chart.rightAxesContainer;
+    
+    // scrollbar
+    chart.scrollbarX = new am4core.Scrollbar();
+    chart.scrollbarX.parent = chart.rightAxesContainer;
+    chart.scrollbarX.orientation = "vertical";
+    chart.scrollbarX.align = "center";
+    chart.scrollbarX.exportable = false;
+    
+    // vertical orientation for zoom out button and scrollbar to be positioned properly
+    chart.rightAxesContainer.layout = "vertical";
+    chart.rightAxesContainer.padding(120, 20, 120, 20);
+    
+    // category axis
+    var categoryAxis = chart.xAxes.push(new am4charts.CategoryAxis());
+    categoryAxis.renderer.grid.template.location = 0;
+    categoryAxis.dataFields.category = "country";
+    
+    var categoryAxisRenderer = categoryAxis.renderer;
+    var categoryAxisLabel = categoryAxisRenderer.labels.template;
+    categoryAxisLabel.location = 0.5;
+    categoryAxisLabel.radius = 28;
+    categoryAxisLabel.relativeRotation = 90;
+    
+    categoryAxisRenderer.fontSize = 11;
+    categoryAxisRenderer.minGridDistance = 10;
+    categoryAxisRenderer.grid.template.radius = -25;
+    categoryAxisRenderer.grid.template.strokeOpacity = 0.05;
+    categoryAxisRenderer.grid.template.interactionsEnabled = false;
+    
+    categoryAxisRenderer.ticks.template.disabled = true;
+    categoryAxisRenderer.axisFills.template.disabled = true;
+    categoryAxisRenderer.line.disabled = true;
+    
+    categoryAxisRenderer.tooltipLocation = 0.5;
+    categoryAxis.tooltip.defaultState.properties.opacity = 0;
+    
+    // value axis
+    var valueAxis = chart.yAxes.push(new am4charts.ValueAxis());
+    valueAxis.min = 0;
+    valueAxis.max = 10000;
+    valueAxis.strictMinMax = true;
+    valueAxis.tooltip.defaultState.properties.opacity = 0;
+    valueAxis.tooltip.animationDuration = 0;
+    valueAxis.cursorTooltipEnabled = true;
+    valueAxis.zIndex = 10;
+    
+    var valueAxisRenderer = valueAxis.renderer;
+    valueAxisRenderer.axisFills.template.disabled = true;
+    valueAxisRenderer.ticks.template.disabled = true;
+    valueAxisRenderer.minGridDistance = 20;
+    valueAxisRenderer.grid.template.strokeOpacity = 0.05;
+    
+    
+    // series
+    var series = chart.series.push(new am4charts.RadarColumnSeries());
+    console.log(series)
+    series.columns.template.width = am4core.percent(90);
+    series.columns.template.strokeOpacity = 0;
+    series.dataFields.valueY = "value" + currentYear;
+    series.dataFields.categoryX = "country";
+    series.tooltipText = "{categoryX}:{valueY.value}";
+    
+    // this makes columns to be of a different color, depending on value
+    series.heatRules.push({ target: series.columns.template, property: "fill", minValue: 0, maxValue: 5000, min: am4core.color("#673AB7"), max: am4core.color("#F44336"), dataField: "valueY" });
+    
+    // cursor
+    var cursor = new am4charts.RadarCursor();
+    chart.cursor = cursor;
+    cursor.behavior = "zoomX";
+    
+    cursor.xAxis = categoryAxis;
+    cursor.innerRadius = am4core.percent(40);
+    cursor.lineY.disabled = true;
+    
+    cursor.lineX.fillOpacity = 0.2;
+    cursor.lineX.fill = am4core.color("#000000");
+    cursor.lineX.strokeOpacity = 0;
+    cursor.fullWidthLineX = true;
+    
+    // year slider
+    var yearSliderContainer = chart.createChild(am4core.Container);
+    yearSliderContainer.layout = "vertical";
+    yearSliderContainer.padding(0, 38, 0, 38);
+    yearSliderContainer.width = am4core.percent(100);
+    
+    var yearSlider = yearSliderContainer.createChild(am4core.Slider);
+    yearSlider.events.on("rangechanged", function () {
+        updateRadarData(startYear + Math.round(yearSlider.start * (endYear - startYear)));
+    })
+    yearSlider.orientation = "horizontal";
+    yearSlider.start = 0.5;
+    yearSlider.exportable = false;
+    
+    chart.data = generateRadarData();
+    
+    function generateRadarData() {
+        var data = [];
+        var i = 0;
+        for (var continent in temperatures) {
+            var continentData = temperatures[continent];
+            
+            continentData.forEach(function (country) {
+                
+                var rawDataItem = { "country": country[0] }
+                
+                for (var y = 2; y < country.length; y++) {
+                    rawDataItem["value" + (startYear + y - 2)] = country[y];
+                }
+                
+                data.push(rawDataItem);
+            });
+    
+            createRange(continent, continentData, i);
+            
+            i++;
+            
+    
+        }
+        return data;
+    }
+    
+    
+    function updateRadarData(year) {
+        if (currentYear != year) {
+            currentYear = year;
+            yearLabel.text = String(currentYear);
+            series.dataFields.valueY = "value" + currentYear;
+            chart.invalidateRawData();
+        }
+    }
+    
+    function createRange(name, continentData, index) {
+    
+        var axisRange = categoryAxis.axisRanges.create();
+        axisRange.axisFill.interactionsEnabled = true;
+        axisRange.text = name;
+        // first country
+        axisRange.category = continentData[0][0];
+        
+        // last country
+        axisRange.endCategory = continentData[continentData.length - 1][0];
+        
+        // every 3rd color for a bigger contrast
+        axisRange.axisFill.fill = colorSet.getIndex(index * 3);
+        axisRange.grid.disabled = true;
+        axisRange.label.interactionsEnabled = false;
+        axisRange.label.bent = true;
+    
+        var axisFill = axisRange.axisFill;
+        axisFill.innerRadius = -0.001; // almost the same as 100%, we set it in pixels as later we animate this property to some pixel value
+        axisFill.radius = -20; // negative radius means it is calculated from max radius
+        axisFill.disabled = false; // as regular fills are disabled, we need to enable this one
+        axisFill.fillOpacity = 1;
+        axisFill.togglable = true;
+    
+        axisFill.showSystemTooltip = true;
+        axisFill.readerTitle = "click to zoom";
+        axisFill.cursorOverStyle = am4core.MouseCursorStyle.pointer;
+    
+        axisFill.events.on("hit", function (event) {
+            var dataItem = event.target.dataItem;
+            if (!event.target.isActive) {
+                categoryAxis.zoom({ start: 0, end: 1 });
+            }
+            else {
+                categoryAxis.zoomToCategories(dataItem.category, dataItem.endCategory);
+            }
+        })
+    
+        // hover state
+        var hoverState = axisFill.states.create("hover");
+        hoverState.properties.innerRadius = -10;
+        hoverState.properties.radius = -25;
+    
+        var axisLabel = axisRange.label;
+        axisLabel.location = 0.5;
+        axisLabel.fill = am4core.color("#ffffff");
+        axisLabel.radius = 3;
+        axisLabel.relativeRotation = 0;
+    }
+    
+    var slider = yearSliderContainer.createChild(am4core.Slider);
+    slider.start = 1;
+    slider.exportable = false;
+    slider.events.on("rangechanged", function () {
+        var start = slider.start;
+    
+        chart.startAngle = 270 - start * 179 - 1;
+        chart.endAngle = 270 + start * 179 + 1;
+    
+        valueAxis.renderer.axisAngle = chart.startAngle;
+    })
+    
+    }); // end am4core.ready()
+    </script>
+    
+    <!-- HTML -->
+    <div id="chartdiv"></div>
