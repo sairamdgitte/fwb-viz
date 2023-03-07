@@ -31,7 +31,7 @@
 
     
     
-    var startYear = 1991;
+    var startYear = 1990;
     var endYear = 2022;
     var currentYear = 2022;
     var colorSet = new am4core.ColorSet();
@@ -102,7 +102,7 @@
     // value axis
     var valueAxis = chart.yAxes.push(new am4charts.ValueAxis());
     valueAxis.min = 0;
-    valueAxis.max = 10000;
+    valueAxis.max = 100;
     valueAxis.strictMinMax = true;
     valueAxis.tooltip.defaultState.properties.opacity = 0;
     valueAxis.tooltip.animationDuration = 0;
@@ -126,7 +126,7 @@
     series.tooltipText = "{categoryX}:{valueY.value}";
     
     // this makes columns to be of a different color, depending on value
-    series.heatRules.push({ target: series.columns.template, property: "fill", minValue: 0, maxValue: 5000, min: am4core.color("#673AB7"), max: am4core.color("#F44336"), dataField: "valueY" });
+    series.heatRules.push({ target: series.columns.template, property: "fill", minValue: 0, maxValue: 100, min: am4core.color("#673AB7"), max: am4core.color("#F44336"), dataField: "valueY" });
     
     // cursor
     var cursor = new am4charts.RadarCursor();
